@@ -9,12 +9,15 @@ class RouteIdrr {
 
     private loadedUris: string[];
 
+    private loaded = false;
+
     public loadUris(expressApp: express.Application) {
         Identifier.clear();
 
         this.loadedUris = Extractor.extractUris(expressApp);
 
         Identifier.load(this.loadedUris);
+        this.loaded = true;
     }
 
     public getUris() {
@@ -31,6 +34,10 @@ class RouteIdrr {
         } else {
             throw new Error(`No URIs were loaded`);
         }
+    }
+
+    public isLoaded(): boolean {
+        return this.loaded;
     }
 
 }
